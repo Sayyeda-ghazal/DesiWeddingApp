@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Your Wedding Quote</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-pink-50 min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl">
+        <h1 class="text-3xl font-bold text-pink-700 text-center mb-4">Get a Quote for {{ event_name }}</h1>
+        <p class="text-gray-600 text-center mb-6">Tell us a few details to generate an estimated cost.</p>
+
+        {% if user.is_authenticated %}
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+        
+            <div>
+                <label class="block text-gray-700 font-medium mb-1">Select Event</label>
+                <select name="event" required class="w-full border border-gray-300 rounded px-3 py-2">
+                    <option value="">-- Select Event --</option>
+                    {% for ev in events %}
+                        <option value="{{ ev.id }}" {% if ev.name == event_name %}selected{% endif %}>
+                            {{ ev.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <div>
+                <label class="block text-gray-700 font-medium mb-1">Select Menu</label>
+                <select name="menu" required class="w-full border border-gray-300 rounded px-3 py-2 mt-4">
+                    <option value="">-- Select Menu --</option>
+                    {% for m in menus %}
+                        <option value="{{ m.id }}" {% if m.id == menu_id %}selected{% endif %}>
+                            {{ m.name }}
+                        </option>
+                    {% endfor %}
+                </select>                               
+            </div>
+        
+            <div>
+                <label class="block text-gray-700 font-medium mb-1">Event Date</label>
+                <input type="date" name="date" required class="w-full border border-gray-300 rounded px-3 py-2">
+            </div>
+        
+            <div>
+                <label class="block text-gray-700 font-medium mb-1">Number of Guests</label>
+                <input type="number" name="guests" min="10" required class="w-full border border-gray-300 rounded px-3 py-2">
+            </div>
+        
+            <div>
+                <label class="block text-gray-700 font-medium mb-1">Services Needed</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="services" value="Catering" class="mr-2"> Catering
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" name="services" value="Photography" class="mr-2"> Photography
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" name="services" value="Decor" class="mr-2"> Decor
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" name="services" value="Venue" class="mr-2"> Venue
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 transition">
+                Generate Quote
+            </button>
+        </form>
+        {% else %}
+            <p class="text-center text-red-600 font-medium">
+                Please <a href="{% url 'login' %}?next={{ request.path }}" class="underline text-blue-600">log in</a> to generate a quote.
+            </p>
+        {% endif %}
+
+        {% if estimated_cost %}
+            <div class="mt-6 p-4 bg-pink-100 rounded text-center text-pink-800 font-semibold">
+                Estimated Cost: PKR {{ estimated_cost }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

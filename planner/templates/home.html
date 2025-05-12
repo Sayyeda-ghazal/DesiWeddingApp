@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zahra's Wedding Planner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-pink-50">
+    <div class="min-h-screen flex flex-col items-center justify-center p-6">
+        <h1 class="text-4xl font-bold text-pink-700 mb-2 text-center">Zahra's Wedding Planner</h1>
+        <p class="text-lg text-gray-600 mb-8 text-center max-w-xl">
+            Plan your dream wedding with ease. Choose your event, menu, services, and get an instant quote — all in one place.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+            <div class="bg-white p-6 shadow-lg rounded-lg hover:shadow-xl">
+                <h2 class="text-xl font-semibold mb-2">Select Event Type</h2>
+                <p class="text-sm text-gray-600 mb-4 text-center">Choose from Mehndi, Barat, Walima, and more.</p>
+                <a href="{% url 'event_selection' %}">
+                    <button class="bg-pink-600 text-white py-2 px-4 rounded">Start</button>
+                </a>
+            </div>
+
+            <div class="bg-white p-6 shadow-lg rounded-lg hover:shadow-xl">
+                <h2 class="text-xl font-semibold mb-2">View Menu Options</h2>
+                <p class="text-sm text-gray-600 mb-4 text-center">Explore our curated wedding menus for every occasion.</p>
+                <a href="{% url 'menus' %}">
+                    <button class="bg-pink-600 text-white py-2 px-4 rounded">View Menus</button>
+                </a>
+            </div>
+
+            <div class="bg-white p-6 shadow-lg rounded-lg hover:shadow-xl">
+                <h2 class="text-xl font-semibold mb-2">Get a Quote</h2>
+                <p class="text-sm text-gray-600 mb-4 text-center">Fill out a quick form to receive an estimated cost.</p>
+                <a href="{% url 'get_quote' %}">
+                    <button class="bg-pink-600 text-white py-2 px-4 rounded">Get Quote</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Menus</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-pink-50">
+    <div class="min-h-screen flex flex-col items-center justify-center p-6">
+        <h1 class="text-4xl font-bold text-pink-700 mb-6 text-center">Wedding Menus</h1>
+        <p class="text-lg text-gray-600 mb-8 text-center max-w-xl">
+            Explore our carefully curated wedding menus. Select your favorite and get started with your event planning.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+            {% for menu in menus %}
+            <div class="bg-white p-6 shadow-lg rounded-lg hover:shadow-xl transition-shadow">
+                <h2 class="text-xl font-semibold mb-2 text-center text-pink-700">{{ menu.name }}</h2>
+                
+                <p class="text-sm text-gray-600 mb-4 text-center">
+                    {{ menu.description|default:"No description available." }}
+                </p>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-700 font-medium mb-1 text-center">Items:</p>
+                    <ul class="text-sm text-gray-600 list-disc list-inside">
+                        {% for item in menu.item_list %}
+    <li>{{ item }}</li>
+{% endfor %}
+
+                    </ul>
+                </div>
+
+                <p class="text-sm text-gray-700 mb-2 text-center">
+                    <strong>Price per Guest:</strong> PKR {{ menu.price_per_guest }}
+                </p>
+
+                {% if menu.categories %}
+                <div class="mb-2 text-center">
+                    <p class="text-sm text-gray-700 font-medium">Categories:</p>
+                    <div class="flex justify-center flex-wrap gap-2 mt-1">
+                        {% for category in menu.categories %}
+                            <span class="bg-pink-100 text-pink-700 text-xs font-medium px-2 py-1 rounded-full">
+                                {{ category }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if menu.dietary_requirements %}
+                <div class="mb-4 text-center">
+                    <p class="text-sm text-gray-700 font-medium">Dietary Requirements:</p>
+                    <div class="flex justify-center flex-wrap gap-2 mt-1">
+                        {% for req in menu.dietary_requirements %}
+                            <span class="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-full">
+                                {{ req }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <a href="{% url 'get_quote' %}?menu_id={{ menu.id }}" class="block text-center mt-4">
+                    <button class="bg-pink-600 hover:bg-pink-700 transition text-white py-2 px-4 rounded">
+                        Get a Quote
+                    </button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

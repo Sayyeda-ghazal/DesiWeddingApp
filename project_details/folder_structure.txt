@@ -1,0 +1,19 @@
+wedding_project/
+    ├── wedding_project/           # Main project folder
+    │   ├── __init__.py
+    │   ├── settings.py
+    │   ├── urls.py
+    │   ├── asgi.py
+    │   ├── wsgi.py
+    ├── planner/                   # Your app folder
+    │   ├── __init__.py
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── migrations/
+    │   ├── models.py
+    │   ├── tests.py
+    │   ├── views.py
+    ├── manage.py
+    ├── db.sqlite3                # Your database file
+    └── static/                    # Folder for static files like CSS, JS
+    └── templates/                 # Folder for HTML templates
